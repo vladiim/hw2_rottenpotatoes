@@ -9,6 +9,17 @@ class MoviesController < ApplicationController
   def index
     column = params[:sort_by]
     @movies = Movie.sort_by(column)
+
+    if column == 'title'
+      @title_class = 'hilite'
+      @release_date_class  = 'no_hilite'
+    elsif column == 'release_date'
+      @title_class = 'no_hilite'
+      @release_date_class  = 'hilite'
+    else
+      @title_class = 'no_hilite'
+      @release_date_class  = 'no_hilite'
+    end
   end
 
   def new
