@@ -8,7 +8,13 @@ gem 'rails', '3.1.0'
 # for Heroku deployment - as described in Ap. A of ELLS book
 group :development, :test do
   gem 'sqlite3'
+  gem 'capybara'
+  gem 'rr'
+  gem 'factory_girl_rails'
+  gem 'debugger'
+  gem 'rspec-rails'
 end
+
 group :production do
   gem 'pg'
 end
@@ -24,11 +30,4 @@ end
 
 gem 'jquery-rails'
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
 gem 'haml'
