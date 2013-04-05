@@ -7,8 +7,17 @@ class MoviesController < ApplicationController
   end
 
   def index
+
+    @all_ratings = Movie::RATINGS
+    @ratings = ''
+
     column = params[:sort_by]
     @movies = Movie.sort_by(column)
+
+    if params[:ratings] && params[:ratings] != ''
+      params[:ratings].class == Array ? @ratings = params[:ratings] : @ratings = params[:ratings].keys
+      @movies = @movies.filter_ratings @ratings
+    end
 
     if column == 'title'
       @title_class = 'hilite'

@@ -23,4 +23,15 @@ describe Movie do
       end
     end
   end
+
+  describe '.filter_ratings' do
+    let(:ratings) { ['G', 'PG'] }
+    let(:result)  { Movie.filter_ratings(ratings) }
+
+    before { mock(Movie).where(ratings: ratings) { 'MOVIES FILTERED BY RATINGS' } }
+
+    it 'returns the movies filtered by ratings' do
+      result.should eq 'MOVIES FILTERED BY RATINGS'
+    end
+  end
 end
