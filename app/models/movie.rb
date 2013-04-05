@@ -1,6 +1,7 @@
 class Movie < ActiveRecord::Base
 
-  def self.sort_by(column)
-    Movie.order column
-  end
+  RATINGS = ['G','PG','PG-13','R']
+
+  scope :sort_by, lambda{ |column| order column }
+  scope :filter_ratings, lambda{ |ratings| where(rating: ratings )}
 end
