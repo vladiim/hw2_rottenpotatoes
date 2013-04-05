@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   def index
 
     @all_ratings = Movie::RATINGS
-    @ratings = ''
+    @ratings = @all_ratings
 
     column = params[:sort_by]
     @movies = Movie.sort_by(column)
