@@ -13,6 +13,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'debugger'
   gem 'rspec-rails'
+  gem 'launchy'
 end
 
 group :production do

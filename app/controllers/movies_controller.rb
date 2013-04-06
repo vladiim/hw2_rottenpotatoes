@@ -7,16 +7,35 @@ class MoviesController < ApplicationController
   end
 
   def index
-
     @all_ratings = Movie::RATINGS
     @ratings = @all_ratings
-
     column = params[:sort_by]
     @movies = Movie.sort_by(column)
 
-    if params[:ratings] && params[:ratings] != ''
-      params[:ratings].class == Array ? @ratings = params[:ratings] : @ratings = params[:ratings].keys
-      @movies = @movies.filter_ratings @ratings
+    options = []
+    options << params[:ratings] && params[:sort_by]
+
+    last_settings = session[:last_settings]
+
+
+    if params[:sort_by]
+      column = params[:sort_by]
+    elsif last_settings
+      column = last_settings[:sort_by]
+    end
+
+    if options[0] != nil
+      if params[:ratings] && params[:ratings] != ''
+        params[:ratings].class == Array ? @ratings = params[:ratings] : @ratings = params[:ratings].keys
+        @movies = @movies.filter_ratings @ratings
+      end
+
+      session[:last_settings] = { ratings: @ratings, sort_by: column }
+
+    elsif last_settings && !last_settings.empty?
+      flash.keep
+      redirect_to movies_path(ratings: last_settings[:ratings], sort_by: last_settings[:sort_by])
+      session.delete :last_settings
     end
 
     if column == 'title'
